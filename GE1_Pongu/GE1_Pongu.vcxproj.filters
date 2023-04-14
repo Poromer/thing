@@ -26,5 +26,14 @@
     <ClInclude Include="..\Src\pch.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\GameStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

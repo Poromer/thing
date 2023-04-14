@@ -1,12 +1,6 @@
-// ---------------------------------------------------------------------------
-// includes
 #include "pch.h"
 
-
-
-
-// ---------------------------------------------------------------------------
-// main
+s8 Font_PStart2P{};
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -23,33 +17,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 
-	// Initialization of your own variables go here
-
-	// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
-
-	// Changing the window title
-	AESysSetWindowTitle("My New Demo!");
-
-	// reset the system modules
+	AESysInit(hInstance, nCmdShow, GameData::WindowSize.x, GameData::WindowSize.y, 1, 60, true, NULL);
+	AESysSetWindowTitle(GameConstants::GAME_NAME);
 	AESysReset();
 
-
+	Font_PStart2P = AEGfxCreateFont(PATHS::FONTS_PATH, UI::FONT_SIZE);
 
 	// Game Loop
 	while (gGameRunning)
 	{
-		// Informing the system about the loop's start
 		AESysFrameStart();
-
-		// Handling Input
 		AEInputUpdate();
-
-		// Your own update logic goes here
-
-		// Your own rendering logic goes here
-
-		// Informing the system about the loop's end
 		AESysFrameEnd();
 
 		// check if forcing the application to quit
@@ -58,6 +36,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 
-	// free the system
+	AEGfxDestroyFont(Font_PStart2P);
 	AESysExit();
 }

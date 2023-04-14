@@ -112,6 +112,9 @@ xcopy "$(SolutionDir)Extern\AlphaEngine_V3.09\lib\fmod.dll" "$(OutDir)" /s /r /y
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Inc\Data.h" />
+    <ClInclude Include="..\Inc\GameState.h" />
+    <ClInclude Include="..\Inc\GameStateManager.h" />
     <ClInclude Include="..\Src\pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
