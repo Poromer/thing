@@ -105,17 +105,30 @@ xcopy "$(SolutionDir)Extern\AlphaEngine_V3.09\lib\fmod.dll" "$(OutDir)" /s /r /y
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\Component.cpp" />
+    <ClCompile Include="..\Src\GameStateManager.cpp" />
+    <ClCompile Include="..\Src\Graphics.cpp" />
     <ClCompile Include="..\Src\main.cpp" />
+    <ClCompile Include="..\Src\MainMenu.cpp" />
     <ClCompile Include="..\Src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Src\Splashscreen.cpp" />
+    <ClCompile Include="..\Src\UI_Manager.cpp" />
+    <ClCompile Include="..\Src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Inc\Data.h" />
-    <ClInclude Include="..\Inc\GameState.h" />
-    <ClInclude Include="..\Inc\GameStateManager.h" />
+    <ClInclude Include="..\Src\Component.h" />
+    <ClInclude Include="..\Src\Data.h" />
+    <ClInclude Include="..\Src\GameState.h" />
+    <ClInclude Include="..\Src\GameStateManager.h" />
+    <ClInclude Include="..\Src\Graphics.h" />
+    <ClInclude Include="..\Src\MainMenu.h" />
     <ClInclude Include="..\Src\pch.h" />
+    <ClInclude Include="..\Src\Splashscreen.h" />
+    <ClInclude Include="..\Src\UI_Manager.h" />
+    <ClInclude Include="..\Src\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
