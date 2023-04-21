@@ -26,6 +26,7 @@ namespace UI
 
 namespace Game_Constants
 {
+	constexpr AEVec2 ZERO_VECTOR{ 0 ,0 };
 	constexpr const char* GAME_NAME				{ "Pingu Pong" };
 	constexpr const char* ASSETS_PATH			{ "../Assets/" };	// Gerald Said this is bad practice as it means having to concated strings 
 																	// which causes new strings to be construct wasiting performace since projects can have alot of strings
@@ -45,4 +46,6 @@ namespace ASSETS
 {
 	constexpr const char* FONTS_PATH{ "../Assets/Font/PressStart2P-Regular.ttf" };
 	constexpr const char* HERO_SPLASHSCREEN{ "../Assets/UI_Elements/PonkoStudiosBanner.png" };
+	constexpr const char* DEBUG_NULLTEXTURE{ "../Assets/Debug/noTexture.png" };
+	
 }

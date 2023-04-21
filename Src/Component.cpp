@@ -57,6 +57,32 @@ Renderable::~Renderable()
 		AEGfxTextureUnload(Texture);
 }
 
+// UI_Element Component
+UI_Element::UI_Element() 
+{
+
+}
+
+/*
+UI_Element::UI_Element(AEVec2 _pos, f32 _width, f32 _height)
+	: Pos(_pos), Width(_width), Height(_height)
+{
+
+}
+
+UI_Element::UI_Element(AEVec2 _pos, f32 _width, f32 _height, bool _visible, bool _enabled)
+	: Pos(_pos), Width(_width), Height(_height), visible(_visible), enabled(_enabled)
+{
+
+}
+*/
+
+UI_Element::UI_Element(bool _visible, bool _enabled)
+	: visible(_visible), enabled(_enabled)
+{
+
+}
+
 /*!*************************************************************************
  * \brief
  * Frees memory allocated to components in an entity.

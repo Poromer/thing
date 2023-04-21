@@ -12,3 +12,7 @@ namespace Utils
 }
 
 std::ostream& operator<<(std::ostream& os, AEVec2 rhs);
+AEVec2 operator-(AEVec2 lhs, AEVec2 rhs);
+AEVec2 operator+(AEVec2 lhs, AEVec2 rhs);
+bool operator==(AEVec2 lhs, AEVec2 rhs);
+bool operator!=(AEVec2 lhs, AEVec2 rhs);

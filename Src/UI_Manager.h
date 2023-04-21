@@ -1,5 +1,16 @@
 #include "pch.h"
 
+
+namespace UI
+{
+	void InitUI_Element(Entity& entity, f32 width, f32 height, AEVec2 pos, const char* texture = ASSETS::DEBUG_NULLTEXTURE);
+	void GroupUI_Element(Entity& parentEntity, Entity& childEntity);
+	void UnGroupUI_Element(Entity& parentEntity, Entity& childEntity);
+	void ClickDragUI_Element(Entity& entity);
+}
+
+/*
+
 // Event Driven Archietecture
 
 enum class UI_EventType
@@ -62,3 +73,4 @@ class UI_Mananger
 
 };
 
+*/

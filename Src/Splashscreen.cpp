@@ -4,39 +4,42 @@
 
 namespace
 {
-	Entity BG_Hero;
+	Entity BG_Hero, test;
 }
 
 
 void SplashScreen::Load()
 {
-
+	 
 }
 
 void SplashScreen::Init()
 {
-	auto heroRend = BG_Hero.AddComponent<Renderable>();
-	heroRend->Mesh = Graphics::CreateQuadMesh(405, 102);
-	heroRend->Texture = AEGfxTextureLoad(ASSETS::HERO_SPLASHSCREEN);
+	UI::InitUI_Element(BG_Hero, 405, 102, { -UI::UNIT_X * 2.5f , UI::UNIT_Y * .5f }, ASSETS::HERO_SPLASHSCREEN);
+	UI::InitUI_Element(test, 405, 102, { 0,0 });
 
-	auto heroTrans = BG_Hero.AddComponent<Transform>();
-	heroTrans->Pos = { -UI::UNIT_X * 2.5f , UI::UNIT_Y * .5f};
+	UI::GroupUI_Element(BG_Hero, test);
+
 }
 
 void SplashScreen::Update(const f64& _deltatime)
 {
-	//std::cout << Input::GetCursorPosition() << std::endl;
-	if (Input::IsKeyPressed(AEVK_1)) tprint("Key 1");
-	if(Input::IsKeyTriggered(AEVK_2)) tprint("Key 2");
-	if(Input::IsKeyReleased(AEVK_3)) tprint("Key 3");
+	std::cout << Input::GetCursorPositionDelta() << std::endl;
+	if(Input::IsKeyPressed(AEVK_LBUTTON))
+	{
+		UI::ClickDragUI_Element(BG_Hero);
+	}
 
-	if (Input::IsKeyReleased(AEVK_M)) GameStateManager::GSMChangeState<MainMenu>();
+	if (Input::IsKeyTriggered(AEVK_U)) UI::UnGroupUI_Element(BG_Hero,test);
+	
+	if (Input::IsKeyTriggered(AEVK_M)) GameStateManager::GSMChangeState<MainMenu>();
 }
 
 void SplashScreen::Draw()
 {
 	AEGfxSetBackgroundColor(0,0,0);
 	Graphics::Draw(BG_Hero);
+	Graphics::Draw(test);
 }
 
 void SplashScreen::Free()
@@ -47,4 +50,5 @@ void SplashScreen::Free()
 void SplashScreen::Unload()
 {
 	BG_Hero.Unload();
+	test.Unload();
 }

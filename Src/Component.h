@@ -25,6 +25,7 @@ class Component;
 enum Components {
 	Component_Transform = 0,
 	Component_Renderable,
+	Component_UI_Element,
 	COMPONENTS_MAX
 };
 
@@ -172,8 +173,11 @@ struct Transform : public Component
 	f32 Rotation = 0.f;
 
 	Transform() {};
+	Transform(f32 x, f32 y, f32 w, f32 h) :
+		Pos({ x,y }), Width(w), Height(h) {}
 	Transform(f32 x, f32 y, f32 w, f32 h, f32 r) :
 		Pos({ x,y }), Width(w), Height(h), Rotation(r) {}
+	
 };
 
 /*!*************************************************************************
@@ -193,4 +197,21 @@ struct Renderable : public Component
 	Renderable(AEGfxVertexList* _mesh, AEGfxTexture* _texture = nullptr);
 
 	~Renderable() override;
+};
+
+struct UI_Element : public Component
+{
+	// Transform
+	// Rendarable
+	//AEVec2 Pos{};
+	//f32 Width{}, Height{};
+	bool visible{ true };
+	bool enabled{ true };
+	std::vector<Entity*> childElements{}; // Wld this work? or need to be pointers of enitites
+
+	UI_Element();
+	//UI_Element(AEVec2 _pos, f32 _width, f32 _height);
+	//UI_Element(AEVec2 _pos, f32 _width, f32 _height, bool _visible, bool _enabled);
+	UI_Element( bool _visible, bool _enabled);
+
 };
