@@ -23,6 +23,20 @@ namespace UI
 		entity.AddComponent<UI_Element>();
 	}
 
+	bool IsCursorOnUI_Element(Entity& entity)
+	{
+		Transform* trans = entity.GetComponent<Transform>();
+		// Make Colliders Compoments? [Prefered]
+
+		// For now [to be replaced with collider components]
+		bool insideEntity = Collision::IsPointAABB_Collision(Input::GetCursorPosition(), entity);
+
+		if (insideEntity)
+			return true;
+
+		return false;
+	}
+
 	void GroupUI_Element(Entity& parentEntity, Entity& childEntity)
 	{
 		UI_Element* parentUI = parentEntity.GetComponent<UI_Element>();
@@ -39,12 +53,10 @@ namespace UI
 	{
 		Transform* trans = entity.GetComponent<Transform>();
 		UI_Element* ui = entity.GetComponent<UI_Element>();
-		AEVec2 shiftChild{ Input::GetCursorPositionDelta() };
-		shiftChild.x = -shiftChild.x;
+		AEVec2 shiftAmount{ Input::GetCursorPositionDelta() };
+		shiftAmount.x = -shiftAmount.x;
 
-		trans->Pos = Input::GetCursorPosition();
-
-		tprint(Input::IsCursorPositionChange());
+		trans->Pos = trans->Pos - shiftAmount;
 
 		if (ui->childElements.empty())
 			return;
@@ -52,7 +64,7 @@ namespace UI
 		for (Entity* child : ui->childElements)
 		{
 			Transform* child_trans = child->GetComponent<Transform>();
-			child_trans->Pos = child_trans->Pos - shiftChild;
+			child_trans->Pos = child_trans->Pos - shiftAmount;
 		}
 		
 	}
