@@ -10,3 +10,5 @@ namespace Utils
 {
 
 }
+
+std::ostream& operator<<(std::ostream& os, AEVec2 rhs);
