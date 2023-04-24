@@ -60,7 +60,12 @@ Renderable::~Renderable()
 // UI_Element Component
 UI_Element::UI_Element() 
 {
+	
+}
 
+void UI_Element::RegisterOnClick(void(*onClickFunc)(Entity&))
+{
+	m_OnClickListeners.push_back(onClickFunc);
 }
 
 /*

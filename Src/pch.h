@@ -8,6 +8,7 @@
 #include <fstream>
 #include <array>
 #include <unordered_map>
+#include <functional>
 
 #include <bitset>
 

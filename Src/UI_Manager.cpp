@@ -21,6 +21,10 @@ namespace UI
 			entity.AddComponent<Renderable>(width, height, texture);
 
 		entity.AddComponent<UI_Element>();
+
+		
+		entity.GetComponent<UI_Element>()->RegisterOnClick(ClickDragUI_Element);
+
 	}
 
 	bool IsCursorOnUI_Element(Entity& entity)
@@ -32,7 +36,17 @@ namespace UI
 		bool insideEntity = Collision::IsPointAABB_Collision(Input::GetCursorPosition(), entity);
 
 		if (insideEntity)
+		{
+			if (Input::IsKeyPressed(AEVK_LBUTTON))
+			{
+				UI_Element* ui = entity.GetComponent<UI_Element>();
+				for (auto& listener : ui->m_OnClickListeners)
+				{
+					listener(entity);
+				}
+			}
 			return true;
+		}
 
 		return false;
 	}
@@ -46,6 +60,8 @@ namespace UI
 	void UnGroupUI_Element(Entity& parentEntity, Entity& childEntity)
 	{
 		UI_Element* parentUI = parentEntity.GetComponent<UI_Element>();
+		if (parentUI->childElements.empty())
+			return;
 		parentUI->childElements.erase(std::remove(parentUI->childElements.begin(), parentUI->childElements.end(), &childEntity));
 	}
 
@@ -70,6 +86,10 @@ namespace UI
 	}
 
 }
+
+
+
+
 /*
 void UI_Element::AddChild(UI_Element* child)
 {

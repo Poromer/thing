@@ -10,6 +10,27 @@ namespace UI
 	void ClickDragUI_Element(Entity& entity);
 }
 
+class UI_Layer
+{
+public:
+	UI_Layer();
+	UI_Layer(std::vector<Entity*> entityList);
+	UI_Layer(std::fstream file); // Read text file and init a layer // can try json file as well
+
+	void AddElement();
+	void RemoveElement();
+	void ClickDragLayer();
+
+	//void InitLayer(); 
+	void UpdateLayer(); // Check Layer Inputs
+	void DrawLayer();
+	void UnloadLayer();
+	void FreeLayer();
+
+private:
+	std::vector<Entity*> layerElements{};
+};
+
 /*
 
 // Event Driven Archietecture

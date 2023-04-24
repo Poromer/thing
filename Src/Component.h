@@ -208,6 +208,9 @@ struct UI_Element : public Component
 	bool visible{ true };
 	bool enabled{ true };
 	std::vector<Entity*> childElements{}; // Wld this work? or need to be pointers of enitites
+	std::vector<void(*)(Entity&)> m_OnClickListeners{};
+
+	void RegisterOnClick(void(*)(Entity&));
 
 	UI_Element();
 	//UI_Element(AEVec2 _pos, f32 _width, f32 _height);

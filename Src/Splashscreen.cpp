@@ -25,9 +25,9 @@ void SplashScreen::Init()
 void SplashScreen::Update(const f64& _deltatime)
 {
 	//std::cout << Input::GetCursorPositionDelta() << std::endl;
-	if(Input::IsKeyPressed(AEVK_LBUTTON) && UI::IsCursorOnUI_Element(BG_Hero))
+	if(UI::IsCursorOnUI_Element(BG_Hero))
 	{
-		UI::ClickDragUI_Element(BG_Hero);
+		//UI::ClickDragUI_Element(BG_Hero);
 	}
 
 	if (Input::IsKeyTriggered(AEVK_U)) UI::UnGroupUI_Element(BG_Hero,test);
