@@ -21,9 +21,6 @@ namespace UI
 			entity.AddComponent<Renderable>(width, height, texture);
 
 		entity.AddComponent<UI_Element>();
-		
-		// Adding a "Event" that will happen when the mouse is clicked // maybe chang
-		entity.GetComponent<UI_Element>()->RegisterOnClick(ClickDragUI_Element);
 
 		UI_Event event(UI_EventType::BUTTON_HOLD, ClickDragUI_Element, &entity, AEVK_LBUTTON);
 		entity.GetComponent<UI_Element>()->RegisterEvent(event);
@@ -48,7 +45,6 @@ namespace UI
 					ClickDragUI_Element(*listener.entity);
 				}
 			}
-			
 
 			return true;
 		}
@@ -92,6 +88,9 @@ namespace UI
 	}
 
 }
+
+
+
 
 
 

@@ -215,37 +215,28 @@ struct UI_Event
 
 	UI_Event(UI_EventType _event, EventPtr const& _eventCall) : eventType{ _event }, eventCall { _eventCall } {}
 	UI_Event(UI_EventType _event, EventPtr const& _eventCall, Entity* _entity, u8 _key) : eventType{ _event }, eventCall{ _eventCall }, entity{ _entity }, key { _key } {}
-	//UI_Event(UI_EventType _event, EventPtr const& _eventCall, Entity* _entity) : eventType{ _event }, eventCall{ _eventCall }, entity { _entity } {}
-	//UI_Event(UI_EventType _event, AEVec2 _pos, u8 _key, std::string _text, EventPtr const& _eventCall) : eventType{ _event }, pos{ _pos }, key{ _key }, text{_text},eventCall { _eventCall } {}
 
 	UI_EventType eventType{};
 	EventPtr eventCall{};
 	Entity* entity{nullptr};
-	AEVec2 pos{};
 	u8 key{};
+
+	AEVec2 currsorPos{};
 	std::string text{};
 
 };
 
 struct UI_Element : public Component
 {
-	// Transform
-	// Rendarable
-	//AEVec2 Pos{};
-	//f32 Width{}, Height{};
+
 	bool visible{ true };
 	bool enabled{ true };
-	std::vector<Entity*> childElements{}; // Wld this work? or need to be pointers of enitites
-	std::vector<void(*)(Entity&)> m_OnClickListeners{};
-	std::vector<UI_Event> m_EventListeners{};
+	std::vector<Entity*> childElements{}; 
+	std::vector<UI_Event> m_EventListeners{}; // Might be inefficient since coppying the entire struct can try allocating onto heap using new and turning it into pointers
 
-	void RegisterOnClick(void(*)(Entity&));
 	void RegisterEvent(UI_Event const&);
 
-
 	UI_Element();
-	//UI_Element(AEVec2 _pos, f32 _width, f32 _height);
-	//UI_Element(AEVec2 _pos, f32 _width, f32 _height, bool _visible, bool _enabled);
 	UI_Element( bool _visible, bool _enabled);
 
 };

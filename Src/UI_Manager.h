@@ -17,18 +17,27 @@ public:
 	UI_Layer(std::vector<Entity*> entityList);
 	UI_Layer(std::fstream file); // Read text file and init a layer // can try json file as well
 
-	void AddElement();
-	void RemoveElement();
+	void AddElement(Entity&);
+	void RemoveElement(Entity&);
 	void ClickDragLayer();
 
-	//void InitLayer(); 
-	void UpdateLayer(); // Check Layer Inputs
-	void DrawLayer();
-	void UnloadLayer();
-	void FreeLayer();
 
 private:
 	std::vector<Entity*> layerElements{};
+};
+
+class UI_Manager
+{
+public:
+	void AddLayer(UI_Layer&);
+	void RemoveLayer(UI_Layer&);
+	void AddEvent(UI_Event&);
+	void RemoveEvent(UI_Event&);
+	void ClearEvent();
+
+private:
+	std::vector<UI_Layer*> layers{};
+	std::vector<UI_Event> events{};
 };
 
 /*

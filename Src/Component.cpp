@@ -63,31 +63,11 @@ UI_Element::UI_Element()
 	
 }
 
-void UI_Element::RegisterOnClick(void(*onClickFunc)(Entity&))
-{
-	m_OnClickListeners.push_back(onClickFunc);
-}
-
-
 void UI_Element::RegisterEvent(UI_Event const& event)
 {
 	m_EventListeners.push_back(event);
 }
 
-
-/*
-UI_Element::UI_Element(AEVec2 _pos, f32 _width, f32 _height)
-	: Pos(_pos), Width(_width), Height(_height)
-{
-
-}
-
-UI_Element::UI_Element(AEVec2 _pos, f32 _width, f32 _height, bool _visible, bool _enabled)
-	: Pos(_pos), Width(_width), Height(_height), visible(_visible), enabled(_enabled)
-{
-
-}
-*/
 
 UI_Element::UI_Element(bool _visible, bool _enabled)
 	: visible(_visible), enabled(_enabled)
