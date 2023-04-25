@@ -21,11 +21,14 @@ namespace UI
 			entity.AddComponent<Renderable>(width, height, texture);
 
 		entity.AddComponent<UI_Element>();
-
 		
+		// Adding a "Event" that will happen when the mouse is clicked // maybe chang
 		entity.GetComponent<UI_Element>()->RegisterOnClick(ClickDragUI_Element);
 
+		UI_Event event(UI_EventType::BUTTON_HOLD, ClickDragUI_Element, &entity, AEVK_LBUTTON);
+		entity.GetComponent<UI_Element>()->RegisterEvent(event);
 	}
+
 
 	bool IsCursorOnUI_Element(Entity& entity)
 	{
@@ -36,20 +39,23 @@ namespace UI
 		bool insideEntity = Collision::IsPointAABB_Collision(Input::GetCursorPosition(), entity);
 
 		if (insideEntity)
-		{
-			if (Input::IsKeyPressed(AEVK_LBUTTON))
+		{	
+			UI_Element* ui = entity.GetComponent<UI_Element>();
+			for (auto& listener : ui->m_EventListeners)
 			{
-				UI_Element* ui = entity.GetComponent<UI_Element>();
-				for (auto& listener : ui->m_OnClickListeners)
+				if (Input::IsKeyPressed(listener.key))
 				{
-					listener(entity);
+					ClickDragUI_Element(*listener.entity);
 				}
 			}
+			
+
 			return true;
 		}
 
 		return false;
 	}
+
 
 	void GroupUI_Element(Entity& parentEntity, Entity& childEntity)
 	{
