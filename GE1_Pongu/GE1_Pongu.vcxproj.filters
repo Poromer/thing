@@ -24,7 +24,7 @@
     <ClCompile Include="..\Src\MainMenu.cpp">
       <Filter>GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Splashscreen.cpp">
+    <ClCompile Include="..\Src\Test.cpp">
       <Filter>GameStates</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\GameStateManager.cpp">
@@ -43,6 +43,11 @@
     <ClCompile Include="..\Src\UI_Manager.cpp">
       <Filter>API</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Collision.cpp" />
+    <ClCompile Include="..\Src\Input.cpp" />
+    <ClCompile Include="..\Src\SplashScreen.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Component.h">
@@ -51,7 +56,7 @@
     <ClInclude Include="..\Src\MainMenu.h">
       <Filter>GameStates</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Splashscreen.h">
+    <ClInclude Include="..\Src\Test.h">
       <Filter>GameStates</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\GameState.h">
@@ -74,6 +79,11 @@
     </ClInclude>
     <ClInclude Include="..\Src\UI_Manager.h">
       <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Collision.h" />
+    <ClInclude Include="..\Src\Input.h" />
+    <ClInclude Include="..\Src\SplashScreen.h">
+      <Filter>GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

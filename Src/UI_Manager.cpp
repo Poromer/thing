@@ -22,8 +22,7 @@ namespace UI
 
 		entity.AddComponent<UI_Element>();
 
-		UI_Event event(UI_EventType::BUTTON_HOLD, ClickDragUI_Element, &entity, AEVK_LBUTTON);
-		entity.GetComponent<UI_Element>()->RegisterEvent(event);
+
 	}
 
 
@@ -37,6 +36,8 @@ namespace UI
 
 		if (insideEntity)
 		{	
+			/*
+			
 			UI_Element* ui = entity.GetComponent<UI_Element>();
 			for (auto& listener : ui->m_EventListeners)
 			{
@@ -45,6 +46,8 @@ namespace UI
 					ClickDragUI_Element(*listener.entity);
 				}
 			}
+			*/
+
 
 			return true;
 		}
@@ -89,8 +92,69 @@ namespace UI
 
 }
 
+// UI_LAYER
+void UI_Layer::AddElement(Entity& element)
+{
+	layerElements.push_back(&element);
+}
+
+void UI_Layer::RemoveElement(Entity& element)
+{
+	layerElements.erase(std::remove(layerElements.begin(), layerElements.end(), &element), layerElements.end());
+}
+
+void UI_Layer::ClickDragLayer()
+{
+}
 
 
+// UI_MANAGER
+void UI_Manager::AddLayer(UI_Layer& layer)
+{
+	layers.push_back(&layer);
+}
+
+void UI_Manager::RemoveLayer(UI_Layer& layer)
+{
+	layers.erase(std::remove(layers.begin(), layers.end(), &layer), layers.end());
+}
+
+void UI_Manager::AddEvent(UI_Event& event)
+{
+	events.push_back(event);
+}
+
+void UI_Manager::RemoveEvent(UI_Event& event)
+{
+	events.erase(std::remove(events.begin(), events.end(), event), events.end());
+}
+
+void UI_Manager::ClearEvent()
+{
+	events.clear();
+}
+
+void UI_Manager::UpdateEvents()
+{
+	for (auto& listener : events)
+	{
+		// Probably to use a switch statement
+		if (listener.eventType == UI_EventType::BUTTON_CLICK)
+		{
+			if (Input::IsKeyTriggered(listener.key))
+			{
+				listener.eventCall(*listener.entity);
+			}
+		}
+		else if(listener.eventType == UI_EventType::BUTTON_HOLD)
+		{
+			if (Input::IsKeyPressed(listener.key))
+			{
+				listener.eventCall(*listener.entity);
+			}
+		}
+	}
+}
 
 
 

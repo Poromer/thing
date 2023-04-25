@@ -63,16 +63,29 @@ UI_Element::UI_Element()
 	
 }
 
-void UI_Element::RegisterEvent(UI_Event const& event)
-{
-	m_EventListeners.push_back(event);
-}
-
-
 UI_Element::UI_Element(bool _visible, bool _enabled)
 	: visible(_visible), enabled(_enabled)
 {
 
+}
+
+// Overloaded operator== to remove userdefined type of "UI_Event" from 'events' member in UI_Manager
+// Need the operator== to be overload to do a comparisim to find the event to remove, since the vector is
+// holding the value and not the address to said values thus a overload is needed for comparing
+bool UI_Event::operator==(UI_Event const& rhs) // Jank AF but eh
+{
+	if (
+		(this->eventType == rhs.eventType) &&
+		(this->eventCall == rhs.eventCall) &&
+		(this->entity == rhs.entity)&&
+		(this->key == rhs.key)&&
+		(this->currsorPos == rhs.currsorPos)&&
+		(this->text == rhs.text)
+		)
+	{
+		return true;
+	}
+	return false;
 }
 
 /*!*************************************************************************

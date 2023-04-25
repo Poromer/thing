@@ -35,6 +35,8 @@ public:
 	void RemoveEvent(UI_Event&);
 	void ClearEvent();
 
+	void UpdateEvents();
+
 private:
 	std::vector<UI_Layer*> layers{};
 	std::vector<UI_Event> events{};

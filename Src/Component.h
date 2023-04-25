@@ -211,16 +211,32 @@ enum class UI_EventType
 
 struct UI_Event
 {
-	using EventPtr = void(*)(Entity&); //void(*EventPtr)(Entity&) ;
+	// Version 1 // void(*EventPtr)(Entity&) ;
+	// Version 2 // using EventPtr = void(*)(Entity&); 
+	
+	// Version 3 // 
+	/*
+		using EventPtr = union {
+		void(*entityEvent)(Entity&);
+		void(*noArgEvent)();
+	};
+	*/
 
-	UI_Event(UI_EventType _event, EventPtr const& _eventCall) : eventType{ _event }, eventCall { _eventCall } {}
-	UI_Event(UI_EventType _event, EventPtr const& _eventCall, Entity* _entity, u8 _key) : eventType{ _event }, eventCall{ _eventCall }, entity{ _entity }, key { _key } {}
+	// Version 4 // [Something w tempolates?] : 
+
+	using EventPtr = void(*)(Entity&);
+	UI_Event(){}
+	UI_Event(UI_EventType _event, EventPtr const& _eventCall) : eventType{ _event }, eventCall{ _eventCall } {}
+	UI_Event(UI_EventType _event, EventPtr const& _eventCall, Entity* _entity, u8 _key) : eventType{ _event }, eventCall{ _eventCall }, entity{ _entity }, key{ _key } {}
+
+	bool operator==(UI_Event const& rhs);
 
 	UI_EventType eventType{};
 	EventPtr eventCall{};
 	Entity* entity{nullptr};
 	u8 key{};
 
+	// Just in case need else can remove
 	AEVec2 currsorPos{};
 	std::string text{};
 
@@ -231,12 +247,12 @@ struct UI_Element : public Component
 
 	bool visible{ true };
 	bool enabled{ true };
+	UI_Event m_event{};
 	std::vector<Entity*> childElements{}; 
-	std::vector<UI_Event> m_EventListeners{}; // Might be inefficient since coppying the entire struct can try allocating onto heap using new and turning it into pointers
-
-	void RegisterEvent(UI_Event const&);
 
 	UI_Element();
 	UI_Element( bool _visible, bool _enabled);
 
 };
+
+

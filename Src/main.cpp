@@ -1,6 +1,18 @@
 #include "pch.h"
 #include "SplashScreen.h"
 #include "MainMenu.h"
+#include "Test.h"
+
+/**
+// JANK List (Things to Probably Fix)
+- Event being stored by value instead of pointers | Fix: store events on the heap and store their pointers in UI_Manager
+- Event_UI comparism operator (operator==) is jank af not sure if there a better way of doing it
+- Event has things declared a in "Components.h" shld probably move it out
+- How to make eventCall in "UI_Event" handle both "void(*)(Entity&)" and "void(*)()"?
+- UI_Manager::UpdateEvents() shld use switch statement instead of if statements to check for EventInputType
+
+
+*/
 
 s8 Font_PStart2P{};
 
@@ -27,9 +39,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// GSM Loop
 	//GSM_Initialize(1);
+	GSMAdd<Test>();
 	GSMAdd<SplashScreen>();
 	GSMAdd<MainMenu>();
-	GSMInit<SplashScreen>();
+	//GSMInit<SplashScreen>();
+	GSMInit<MainMenu>();
 
 	while (GSM_Current != GSM_QUIT)
 	{
