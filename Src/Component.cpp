@@ -102,3 +102,71 @@ void Entity::Unload()
 	m_ComponentBitset.reset();
 }
 
+//======== Collision Stuff
+
+AABBCollider::AABBCollider(Transform* trans)
+{
+	AEVec2	entityOffset{ trans->Width / 2,trans->Height / 2 };
+	minPt = trans->Pos - entityOffset;
+	maxPt = trans->Pos + entityOffset;
+}
+
+// Super Inefficient but eh for now testing use
+
+
+
+namespace algo
+{
+	CollisionPoints FindAABB_PointCollisionPoints(Entity& entity, AEVec2 point)
+	{
+		auto& aabb = *entity.GetComponent<AABBCollider>();
+		
+		CollisionPoints pt{};
+
+
+		if ((point.x >= aabb.minPt.x && point.x <= aabb.maxPt.x) &&
+			(point.y >= aabb.minPt.y && point.y <= aabb.maxPt.y))
+			pt.HasCollision = true;
+
+		// Current just changes "pt.HasCollision"
+		// doesnt fill the other data of the CollisionPoints data type
+		/*
+			AEVec2 A{}; // Futherest point of A into B
+			AEVec2 B{}; // Futherest point of B into A
+			AEVec2 Normal{}; // B-A Normalised
+			f32 Depth{}; // Length of B - A
+		*/
+		return pt;
+	}
+
+	// Could be Optimized with CSD1130 Gameplay Implementation technique stuff cuz now only handle stationary entities
+	// Other suggestions would be Gilbert-Johnson-Keerthi (GJK) algorithm Expanding Polytope Algorithm (EPA).
+	CollisionPoints FindAABB_AABBCollisionPoints(Entity& entity1, Entity& entity2)
+	{
+		auto& aabb1 = *entity1.GetComponent<AABBCollider>();
+		auto& aabb2 = *entity2.GetComponent<AABBCollider>();
+		auto& trans1 = *entity1.GetComponent<Transform>();
+		auto& trans2 = *entity2.GetComponent<Transform>();
+
+		CollisionPoints pt{};
+
+		if (aabb1.minPt.x < aabb2.maxPt.x && aabb1.maxPt.x > aabb2.minPt.x &&
+			aabb1.minPt.y < aabb2.maxPt.y && aabb1.maxPt.y > aabb2.minPt.y)
+			pt.HasCollision = true;
+
+		AEVec2Sub(&pt.A, &trans1.Pos, &trans2.Pos);
+		AEVec2Sub(&pt.B, &trans2.Pos, &trans1.Pos);
+
+		AEVec2Normalize(&pt.A, &pt.A);
+		AEVec2Normalize(&pt.B, &pt.B);
+
+		AEVec2Scale(&pt.A, &pt.A, trans1.Width);
+		AEVec2Scale(&pt.B, &pt.B, trans1.Width); // Not sure if the pt.A and pt.B are accurate
+
+		AEVec2Sub(&pt.Normal, &pt.B, &pt.A);
+		pt.Depth = AEVec2Length(&pt.Normal);
+
+		return pt;
+	}
+}
+

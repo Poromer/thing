@@ -26,6 +26,7 @@ enum Components {
 	Component_Transform = 0,
 	Component_Renderable,
 	Component_UI_Element,
+	Component_AABBCollider,
 	COMPONENTS_MAX
 };
 
@@ -226,8 +227,10 @@ struct UI_Event
 
 	using EventPtr = void(*)(Entity&);
 	UI_Event(){}
-	UI_Event(UI_EventType _event, EventPtr const& _eventCall) : eventType{ _event }, eventCall{ _eventCall } {}
-	UI_Event(UI_EventType _event, EventPtr const& _eventCall, Entity* _entity, u8 _key) : eventType{ _event }, eventCall{ _eventCall }, entity{ _entity }, key{ _key } {}
+	UI_Event(UI_EventType _event, EventPtr const& _eventCall)
+		: eventType{ _event }, eventCall{ _eventCall } {}
+	UI_Event(UI_EventType _event, EventPtr const& _eventCall, Entity* _entity, u8 _key)
+		: eventType{ _event }, eventCall{ _eventCall }, entity{ _entity }, key{ _key } {}
 
 	bool operator==(UI_Event const& rhs);
 
@@ -236,7 +239,7 @@ struct UI_Event
 	Entity* entity{nullptr};
 	u8 key{};
 
-	// Just in case need else can remove
+	// Just in case need, else can remove
 	AEVec2 currsorPos{};
 	std::string text{};
 
@@ -244,15 +247,43 @@ struct UI_Event
 
 struct UI_Element : public Component
 {
-
 	bool visible{ true };
 	bool enabled{ true };
-	UI_Event m_event{};
+	UI_Event m_event {};
 	std::vector<Entity*> childElements{}; 
 
 	UI_Element();
 	UI_Element( bool _visible, bool _enabled);
-
 };
 
+//======== Collision Stuff
+struct CollisionPoints {
+	AEVec2 A{}; // Futherest point of A into B
+	AEVec2 B{}; // Futherest point of B into A
+	AEVec2 Normal{}; // B-A Normalised
+	f32 Depth{}; // Length of B - A
+	bool HasCollision{false};
+};
+
+struct AABBCollider;
+struct CircleCollider;
+
+
+struct AABBCollider : public Component
+{
+	AABBCollider();
+	AABBCollider(Transform* trans);
+
+	AEVec2 minPt{};
+	AEVec2 maxPt{};
+};
+
+namespace algo
+{
+	CollisionPoints FindAABB_PointCollisionPoints(Entity& entity, AEVec2 point);
+	CollisionPoints FindAABB_AABBCollisionPoints(Entity& entity1, Entity& entity2);
+
+	// Commented out cuz technically could do all collision checks with AABB
+	// And also kinda wanna try the mini aabb sub collision box method if i need more accurate collision boxes
+}
 

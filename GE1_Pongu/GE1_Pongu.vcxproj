@@ -107,6 +107,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine_V3.09\lib\fmod.dll" "$(OutDir)" /s /r /y
   <ItemGroup>
     <ClCompile Include="..\Src\Collision.cpp" />
     <ClCompile Include="..\Src\Component.cpp" />
+    <ClCompile Include="..\Src\Gameplay.cpp" />
     <ClCompile Include="..\Src\GameStateManager.cpp" />
     <ClCompile Include="..\Src\Graphics.cpp" />
     <ClCompile Include="..\Src\Input.cpp" />
@@ -125,6 +126,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine_V3.09\lib\fmod.dll" "$(OutDir)" /s /r /y
     <ClInclude Include="..\Src\Collision.h" />
     <ClInclude Include="..\Src\Component.h" />
     <ClInclude Include="..\Src\Data.h" />
+    <ClInclude Include="..\Src\Gameplay.h" />
     <ClInclude Include="..\Src\GameState.h" />
     <ClInclude Include="..\Src\GameStateManager.h" />
     <ClInclude Include="..\Src\Graphics.h" />

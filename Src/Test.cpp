@@ -35,7 +35,6 @@ void Test::Update(const f64& _deltatime)
 		// Creating and sending a "event" // super ineffient doe since its all by value... really need to do heap allocation soon
 		// UI_Event event(UI_EventType::BUTTON_HOLD, UI::ClickDragUI_Element, &BG_Hero, AEVK_LBUTTON);
 		// BG_Hero.GetComponent<UI_Element>()->m_event = event;
-
 		uiManager.AddEvent(BG_Hero.GetComponent<UI_Element>()->m_event);
 	}
 

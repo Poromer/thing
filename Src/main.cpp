@@ -2,6 +2,7 @@
 #include "SplashScreen.h"
 #include "MainMenu.h"
 #include "Test.h"
+#include "GamePlay.h"
 
 /**
 // JANK List (Things to Probably Fix)
@@ -10,8 +11,10 @@
 - Event has things declared a in "Components.h" shld probably move it out
 - How to make eventCall in "UI_Event" handle both "void(*)(Entity&)" and "void(*)()"?
 - UI_Manager::UpdateEvents() shld use switch statement instead of if statements to check for EventInputType
-
-
+- Tidy up Collision stuff in Components.cpp and Components.h shld be in their own seperate files
+- The way i updated the colliders currently when dragging is in the Drag function itself which is not ideal
+	need to get physics? world system up as the place or some central place to update colliders
+- Drawwing COllders is also quite jank but not as impt cuz its use for testing oni
 */
 
 s8 Font_PStart2P{};
@@ -42,8 +45,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	GSMAdd<Test>();
 	GSMAdd<SplashScreen>();
 	GSMAdd<MainMenu>();
+	GSMAdd<GamePlay>();
 	//GSMInit<SplashScreen>();
-	GSMInit<MainMenu>();
+	GSMInit<Test>();
 
 	while (GSM_Current != GSM_QUIT)
 	{

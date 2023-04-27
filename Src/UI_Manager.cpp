@@ -14,45 +14,25 @@ namespace UI
 
 		// OR [Fail Loudly vs Fail Silently]
 
+		Transform* trans = entity.GetComponent<Transform>();
+		Renderable* rend = entity.GetComponent<Renderable>();
 
-		if (entity.GetComponent<Transform>() == nullptr)
-			entity.AddComponent<Transform>(pos.x, pos.y, width, height);
-		if (entity.GetComponent<Renderable>() == nullptr)
-			entity.AddComponent<Renderable>(width, height, texture);
+		if (trans == nullptr)
+			trans = entity.AddComponent<Transform>(pos.x, pos.y, width, height);
+		if (rend == nullptr)
+			rend = entity.AddComponent<Renderable>(width, height, texture);
 
 		entity.AddComponent<UI_Element>();
 
-
+		// Initalising Collider with trans data cuz lazi
+		entity.AddComponent<AABBCollider>(trans);
 	}
 
 
-	bool IsCursorOnUI_Element(Entity& entity)
+	bool IsCursorOnUI_Element(Entity& entity) // Wrapper to make it more readable
 	{
-		Transform* trans = entity.GetComponent<Transform>();
-		// Make Colliders Compoments? [Prefered]
-
-		// For now [to be replaced with collider components]
-		bool insideEntity = Collision::IsPointAABB_Collision(Input::GetCursorPosition(), entity);
-
-		if (insideEntity)
-		{	
-			/*
-			
-			UI_Element* ui = entity.GetComponent<UI_Element>();
-			for (auto& listener : ui->m_EventListeners)
-			{
-				if (Input::IsKeyPressed(listener.key))
-				{
-					ClickDragUI_Element(*listener.entity);
-				}
-			}
-			*/
-
-
-			return true;
-		}
-
-		return false;
+		//return Collision::IsPointAABB_Collision(Input::GetCursorPosition(), entity);
+		return algo::FindAABB_PointCollisionPoints(entity, Input::GetCursorPosition()).HasCollision;
 	}
 
 
@@ -74,10 +54,13 @@ namespace UI
 	{
 		Transform* trans = entity.GetComponent<Transform>();
 		UI_Element* ui = entity.GetComponent<UI_Element>();
+		AABBCollider* collider = entity.GetComponent<AABBCollider>();
+
 		AEVec2 shiftAmount{ Input::GetCursorPositionDelta() };
 		shiftAmount.x = -shiftAmount.x;
 
 		trans->Pos = trans->Pos - shiftAmount;
+		*collider = AABBCollider(trans); // Hacky? way of updating the colliders probably need to change
 
 		if (ui->childElements.empty())
 			return;

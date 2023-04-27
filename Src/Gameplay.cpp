@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "MainMenu.h"
+#include "GamePlay.h"
 
 namespace
 {
@@ -7,12 +7,12 @@ namespace
 	UI_Manager uiManager;
 }
 
-void MainMenu::Load()
+void GamePlay::Load()
 {
 
 }
 
-void MainMenu::Init()
+void GamePlay::Init()
 {
 	// Init Game Entities
 	UI::InitUI_Element(test, 405, 102, { 0,0 });
@@ -20,26 +20,25 @@ void MainMenu::Init()
 	// Init Events into Entities
 	UI_Event event(UI_EventType::BUTTON_HOLD, UI::ClickDragUI_Element, &test, AEVK_LBUTTON);
 	test.GetComponent<UI_Element>()->m_event = event;
-	test.GetComponent<AABBCollider>();
 }
 
-void MainMenu::Update(const f64& _deltatime)
+void GamePlay::Update(const f64& _deltatime)
 {
 
 }
 
-void MainMenu::Draw()
+void GamePlay::Draw()
 {
 	AEGfxSetBackgroundColor(0, 0, 0);
 	Graphics::Draw(test);
 }
 
-void MainMenu::Free()
+void GamePlay::Free()
 {
 
 }
 
-void MainMenu::Unload()
+void GamePlay::Unload()
 {
 
 }

@@ -36,9 +36,6 @@ namespace Graphics
 		AEGfxMeshDraw(_renderable->Mesh, _renderable->DrawMode);
 	}
 
-
-
-
 	/*!*************************************************************************
 	 * \brief
 	 * Create a quad mesh based on width, height, color and angle (in degrees).
